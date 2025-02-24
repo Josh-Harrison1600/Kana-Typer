@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { hiragana, katakana } from './kana';
+import { hiragana, katakana } from './components/kana';
 import { Checkbox } from '@mantine/core';
+import Footer from './components/footer';
 
 function App() {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
@@ -202,8 +203,9 @@ function App() {
                       </div>
                     </div>
                   </div>
-                </div>
               </div>
+              <Footer />
+            </div>
   );
 }
 
