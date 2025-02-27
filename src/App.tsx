@@ -204,7 +204,7 @@ function App() {
                     </div>
                   </div>
               </div>
-              <Footer />
+              <Footer selectedChars={[...selectedChars]}/>
             </div>
   );
 }
