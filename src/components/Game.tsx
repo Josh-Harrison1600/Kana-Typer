@@ -7,13 +7,16 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Tooltip from '@mui/material/Tooltip';
 import { romanjiMap } from './kana';
-const correct = new Audio("/public/audio/correct.mp3");
-const incorrect = new Audio("/public/audio/incorrect.mp3");
+import correctAudio from '../assets/audio/correct.mp3';
+import incorrectAudio from '../assets/audio/incorrect.mp3';
 
 const Game = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { selectedChars } = location.state || { selectedChars: [] };
+    const correct = new Audio(correctAudio);
+    const incorrect = new Audio(incorrectAudio);
+
 
     //shuffle characters randomly
     const shuffleArray = (array: string[]) => [...array].sort(() => Math.random() - 0.5);
@@ -46,10 +49,9 @@ const Game = () => {
 
         if (userInput.trim().toLowerCase() === correctAnswer) {
             setMessage('Correct!');
-            correct.play();
             setCorrectCount(prevCount => prevCount + 1);
             setShowCorrect(false);
-
+            correct.play();
             setTimeout(() => {
                 setUserInput('');
                 setMessage('');
