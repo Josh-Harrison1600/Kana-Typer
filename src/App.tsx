@@ -95,8 +95,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-800 py-20">
-      <div className="max-w-7xl mx-auto bg-neutral-900 rounded-xl px-6 py-12 shadow-lg overflow-x-">
+    <div className="min-h-screen bg-black py-20">
+      <div className="max-w-7xl mx-auto bg-neutral-900 border-2 border-white px-6 py-12 shadow-lg overflow-x-">
         <div className='flex flex-row gap-10 justify-center'>
         
         {/* Hiragana section */}

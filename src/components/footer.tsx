@@ -17,7 +17,7 @@ const Footer = ({ selectedChars }: { selectedChars: string[]} ) => {
     };
 
     return(
-        <footer className='fixed bottom-0 w-full bg-black py-4 shadow-lg'>
+        <footer className='fixed bottom-0 w-full bg-black py-4 shadow-lg border-t border-white'>
                   <div className="flex justify-center mt-2">
                     <div className='mb-2'>                
                         <Stack spacing={2} direction="row">
