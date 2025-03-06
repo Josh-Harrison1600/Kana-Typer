@@ -7,8 +7,8 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Tooltip from '@mui/material/Tooltip';
 import { romanjiMap } from './kana';
-import correct from '../assets/audio/correct.mp3';
-import incorrect from '../assets/audio/incorrect.mp3';
+const correct = new Audio("/public/audio/correct.mp3");
+const incorrect = new Audio("/public/audio/incorrect.mp3");
 
 const Game = () => {
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const Game = () => {
     //shuffle characters randomly
     const shuffleArray = (array: string[]) => [...array].sort(() => Math.random() - 0.5);
     const [shuffledChars, setShuffledChars] = useState<string[]>(shuffleArray(selectedChars));
-    const [retryQueue, setRetryQueue] = useState<string[]>([]);
+    const [, setRetryQueue] = useState<string[]>([]);
 
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,7 +46,7 @@ const Game = () => {
 
         if (userInput.trim().toLowerCase() === correctAnswer) {
             setMessage('Correct!');
-            new Audio(correct).play();
+            correct.play();
             setCorrectCount(prevCount => prevCount + 1);
             setShowCorrect(false);
 
@@ -57,7 +57,7 @@ const Game = () => {
             }, 500);
         }else{
             setMessage(`Incorrect. Correct Answer: ${correctAnswer}`);
-            new Audio(incorrect).play();
+            incorrect.play();
             setIncorrectCount(prev => prev + 1);
             setShowCorrect(true);
             setPendingRetry(currentKana);
