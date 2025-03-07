@@ -106,7 +106,7 @@ const Game = () => {
     };
 
     return (
-        <div className='min-h-screen flex flex-col items-center justify-center bg-gray-800 text-white p-6'>
+        <div className='min-h-screen flex flex-col items-center justify-center bg-[#090909] text-white p-6'>
             {!quizCompleted ? (
                 <>
                     {/* Show kana/question when quiz is active */}
@@ -124,30 +124,52 @@ const Game = () => {
                                 showCorrect ? moveToNext() : checkAnswer();
                             }
                         }}
-                        className='mb-4 bg-white rounded-lg'
+                        className='mb-4 bg-neutral-900'
                         sx={{
+                            "& .MuiOutlinedInput-root": {
+                                border: "2px solid #4B5563",
+                                borderRadius: "8px",
+                                "&.Mui-focused": {
+                                    boxShadow: "none !important", 
+                                    outline: "none !important", 
+                                },
+                            },
+                            "& .MuiOutlinedInput-notchedOutline": {
+                                borderColor: "#4B5563 !important", 
+                            },
+                            "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                boxShadow: "none !important",
+                                outline: "none !important",
+                            },
                             "& .MuiInputBase-input": {
                                 textAlign: "center",
                                 fontSize: "1.5rem",
-                                color: "black",
+                                color: "white",
                                 paddingLeft: "3.5rem",
                             },
                             "& .MuiInputBase-input::placeholder": {
                                 fontSize: "1.5rem",
                                 opacity: 1,
-                                color: "gray",
+                                color: "#D1D5DB",
                             },
                         }}
                         slotProps={{
                             input: {
                                 endAdornment: (
-                                    <IconButton onClick={showCorrect ? moveToNext : checkAnswer}>
-                                        <ArrowForwardIcon sx={{ color: "black" }} />
+                                    <IconButton onClick={showCorrect ? moveToNext : checkAnswer}
+                                    sx={{
+                                        color: "#4B5563",
+                                        "&:hover": {
+                                            color: "#9CA3AF",
+                                        },
+                                    }}
+                                    >
+                                        <ArrowForwardIcon sx={{ color: "#4B5563" }} />
                                     </IconButton>
                                 ),
                                 style: {
                                     textAlign: "center",
-                                    color: "black",
+                                    color: "white",
                                 },
                             },
                         }}
@@ -166,12 +188,22 @@ const Game = () => {
             {/* Bottom Navigation Icons (Always Show) */}
             <div className="flex flex-row gap-6 mt-6">
                 <Tooltip title="Return to Menu" arrow>
-                    <IconButton onClick={() => navigate("/")} sx={{ color: "red" }}>
+                    <IconButton onClick={() => navigate("/")} sx={{ 
+                        color: "red", 
+                        "&:hover":{
+                            color: "#ff6666",
+                        }
+                    }}>
                         <ArrowBackIcon fontSize="large" />
                     </IconButton>
                 </Tooltip>
                 <Tooltip title="Restart Quiz" arrow>
-                    <IconButton onClick={restartGame} sx={{ color: "red" }}>
+                    <IconButton onClick={restartGame} sx={{ 
+                        color: "red",
+                        "&:hover":{
+                            color: "#ff6666",
+                            }
+                        }}>
                         <RefreshIcon fontSize="large" />
                     </IconButton>
                 </Tooltip>

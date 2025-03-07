@@ -99,10 +99,10 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#090909] py-4">
-      <div className="max-w-7xl mx-auto bg-neutral-900 border-2 border-white rounded-lg px-6 py-6 shadow-lg overflow-x-">
+      <div className="max-w-7xl mx-auto bg-neutral-900 border-2 border-gray-600 rounded-lg px-6 py-6 shadow-lg overflow-x-">
 
         {/* Scrollable Content Section */}
-        <div className='flex flex-row gap-10 justify-center flex-grow overflow-y-auto max-h-[750px] px-4'>
+        <div className='flex flex-row gap-10 justify-center flex-grow overflow-y-auto max-h-[750px] px-4 mb-4'>
         
         {/* Hiragana section */}
         <div className='flex-1 flex flex-col items-center gap-6'>
@@ -209,7 +209,7 @@ function App() {
                     </div>
                   </div>
               {/* Start Button */}
-              <div className='flex justify-center border-t border-white'>
+              <div className='flex justify-center border-t border-gray-600'>
                 <button
                   onClick={() => {
                     if (selectedChars.size > 0) {
@@ -218,7 +218,7 @@ function App() {
                       alert('Select at least one character to start the game');
                     }
                   }}
-                  className="px-10 py-3 bg-blue-500 text-white text-lg font-bold rounded-lg hover:bg-blue-600 transition mt-4"
+                  className="px-10 py-3 text-lg font-bold rounded-lg transition mt-4 border-blue-500 border-2 text-blue-500 hover:bg-blue-500 hover:text-white"
                 >
                   Start
                   </button>
