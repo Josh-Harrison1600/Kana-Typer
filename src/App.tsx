@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { hiragana, katakana } from './components/kana';
 import { Checkbox } from '@mantine/core';
-import Footer from './components/footer';
 
 function App() {
+  const navigate = useNavigate();
+
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const [selectedChars, setSelectedChars] = useState<Set<string>>(new Set());
 
@@ -94,10 +96,13 @@ function App() {
     }
   };
 
+
   return (
-    <div className="min-h-screen bg-black py-20">
-      <div className="max-w-7xl mx-auto bg-neutral-900 border-2 border-white px-6 py-12 shadow-lg overflow-x-">
-        <div className='flex flex-row gap-10 justify-center'>
+    <div className="min-h-screen bg-[#090909] py-4">
+      <div className="max-w-7xl mx-auto bg-neutral-900 border-2 border-white rounded-lg px-6 py-6 shadow-lg overflow-x-">
+
+        {/* Scrollable Content Section */}
+        <div className='flex flex-row gap-10 justify-center flex-grow overflow-y-auto max-h-[750px] px-4'>
         
         {/* Hiragana section */}
         <div className='flex-1 flex flex-col items-center gap-6'>
@@ -121,7 +126,7 @@ function App() {
                     color="blue"
                     className="cursor-pointer"
                     size="md"
-                    radius="xl"
+                    radius="md"
                   />
                 <div className="flex gap-2">
                   {chars.map((char, idx) =>
@@ -203,8 +208,22 @@ function App() {
                       </div>
                     </div>
                   </div>
+              {/* Start Button */}
+              <div className='flex justify-center border-t border-white'>
+                <button
+                  onClick={() => {
+                    if (selectedChars.size > 0) {
+                      navigate('/game', { state: { selectedChars: [...selectedChars] } });
+                    } else {
+                      alert('Select at least one character to start the game');
+                    }
+                  }}
+                  className="px-10 py-3 bg-blue-500 text-white text-lg font-bold rounded-lg hover:bg-blue-600 transition mt-4"
+                >
+                  Start
+                  </button>
+                </div>
               </div>
-              <Footer selectedChars={[...selectedChars]}/>
             </div>
   );
 }
