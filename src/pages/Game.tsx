@@ -6,12 +6,11 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Tooltip from '@mui/material/Tooltip';
-import { romanjiMap } from './kana';
+import { romanjiMap } from '../components/kana';
 import correctAudio from '../assets/audio/correct.mp3';
 import incorrectAudio from '../assets/audio/incorrect.mp3';
-import Footer from './footer';
-import NavBar from './NavBar';
-
+import HeadsetIcon from '@mui/icons-material/Headset';
+import HeadsetOffIcon from '@mui/icons-material/HeadsetOff';
 
 const Game = () => {
     const navigate = useNavigate();
@@ -37,7 +36,26 @@ const Game = () => {
     const [quizCompleted, setQuizCompleted] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
 
+    const [isMuted, setIsMuted] = useState<boolean>(() => {
+        return localStorage.getItem("isMuted") === "true";
+    });
+
     const remainingSymbols = shuffledChars.length - currentIndex;
+
+    //Functions for the mute option
+    const toggleMute = () => {
+        setIsMuted((prev) => {
+            const newMutedState = !prev;
+            localStorage.setItem("isMuted", JSON.stringify(newMutedState));
+            return newMutedState;
+        });
+    };
+    const playCorrectSound = () => {
+        if(!isMuted) correct.play();
+    };
+    const playinCorrectSound = () => {
+        if(!isMuted) incorrect.play();
+    };
 
     //restart game if selectedChars changes
     useEffect(() => {
@@ -58,7 +76,7 @@ const Game = () => {
             setMessage('Correct!');
             setCorrectCount(prevCount => prevCount + 1);
             setShowCorrect(false);
-            correct.play();
+            playCorrectSound();
             setTimeout(() => {
                 setUserInput('');
                 setMessage('');
@@ -67,10 +85,11 @@ const Game = () => {
             }, 500);
         }else{
             setMessage(`Incorrect. \nCorrect Answer: ${correctAnswer}`);
-            incorrect.play();
+            playinCorrectSound();
             setIncorrectCount(prev => prev + 1);
             setShowCorrect(true);
             setPendingRetry(currentKana);
+            setIsProcessing(false);
         }
     };
 
@@ -196,6 +215,7 @@ const Game = () => {
             )}
 
             {/* Bottom Navigation Icons (Always Show) */}
+            {/* Menu button */}
             <div className="flex flex-row gap-6 mt-6">
                 <Tooltip title="Return to Menu" arrow>
                     <IconButton onClick={() => navigate("/")} sx={{ 
@@ -207,6 +227,20 @@ const Game = () => {
                         <ArrowBackIcon fontSize="large" />
                     </IconButton>
                 </Tooltip>
+
+                {/* Mute button */}
+                <Tooltip title="Mute Sound" arrow>
+                    <IconButton onClick={toggleMute} sx={{ 
+                        color: "red", 
+                        "&:hover":{
+                            color: "#ff6666",
+                        }
+                    }}>
+                        {isMuted ? <HeadsetOffIcon fontSize='large'/> : <HeadsetIcon fontSize='large'/>}
+                    </IconButton>
+                </Tooltip>
+                
+                {/* Restart button */}
                 <Tooltip title="Restart Quiz" arrow>
                     <IconButton onClick={restartGame} sx={{ 
                         color: "red",
@@ -218,7 +252,6 @@ const Game = () => {
                     </IconButton>
                 </Tooltip>
             </div>
-            {/* <Footer /> */}
         </div>
     );
 };
