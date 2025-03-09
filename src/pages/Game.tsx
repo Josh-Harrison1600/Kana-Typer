@@ -205,7 +205,7 @@ const Game = () => {
                     />
 
                     {/* Message Display */}
-                    <p className='mt-4 text-lg min-h-[32px] whitespace-pre-line text-center font-bold'>{message}</p>
+                    <p className='mt-4 text-lg min-h-[56px] whitespace-pre-line text-center font-bold'>{message}</p>
                 </>
             ) : (
                 <>

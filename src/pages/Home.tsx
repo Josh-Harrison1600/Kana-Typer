@@ -99,7 +99,7 @@ function App() {
 
 
   return (
-    <div className="min-h-screen bg-[#090909] min-h-[87vh]">
+    <div className="min-h-screen bg-[#090909] min-h-[88vh]">
       <div className="max-w-7xl mx-auto bg-neutral-900 border-2 border-gray-600 rounded-lg px-6 py-6 shadow-lg overflow-x-">
 
         {/* Scrollable Content Section */}
