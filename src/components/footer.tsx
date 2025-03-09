@@ -1,29 +1,14 @@
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Footer = ({ selectedChars }: { selectedChars: string[]} ) => {
-    const navigate = useNavigate();
-    const startGame = () => {
-        if(selectedChars.length > 0) {
-            navigate('/game', { state: { selectedChars}});
-        }else{
-            alert('select one chracter to start game');
-        }
-    };
+const Footer = () => {
 
     return(
-        <footer className='fixed bottom-0 w-full bg-black py-4 shadow-lg border-t border-white'>
-                  <div className="flex justify-center mt-2">
-                    <div className='mb-2'>                
-                        <Stack spacing={2} direction="row">
-                            <Button variant="contained" onClick={startGame}>Start</Button>     
-                        </Stack>    
-                    </div>
+        <footer className='bottom-0 w-full bg-[#131a15] py-4 shadow-lg border-t border-gray-600 mt-6'>
+                  <div className="flex justify-center">
+                    <a href="https://github.com/Josh-Harrison1600/Kana-Typer/" target="_blank" rel="noopener noreferrer">
+                        <FontAwesomeIcon icon={faGithub} className="text-white text-4xl hover:text-gray-300 transition duration-300" />
+                    </a>
                 </div>
         </footer>
     )

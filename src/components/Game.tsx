@@ -9,6 +9,9 @@ import Tooltip from '@mui/material/Tooltip';
 import { romanjiMap } from './kana';
 import correctAudio from '../assets/audio/correct.mp3';
 import incorrectAudio from '../assets/audio/incorrect.mp3';
+import Footer from './footer';
+import NavBar from './NavBar';
+
 
 const Game = () => {
     const navigate = useNavigate();
@@ -32,6 +35,9 @@ const Game = () => {
     const [showCorrect, setShowCorrect] = useState(false);
     const [pendingRetry, setPendingRetry] = useState<string | null>(null); 
     const [quizCompleted, setQuizCompleted] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
+
+    const remainingSymbols = shuffledChars.length - currentIndex;
 
     //restart game if selectedChars changes
     useEffect(() => {
@@ -42,8 +48,9 @@ const Game = () => {
     }, [selectedChars]);
 
     const checkAnswer = () => {
-        if(quizCompleted) return;
+        if(quizCompleted || isProcessing) return;
 
+        setIsProcessing(true);
         const currentKana = shuffledChars[currentIndex];
         const correctAnswer = romanjiMap[currentKana];
 
@@ -56,9 +63,10 @@ const Game = () => {
                 setUserInput('');
                 setMessage('');
                 moveToNext();
+                setIsProcessing(false);
             }, 500);
         }else{
-            setMessage(`Incorrect. Correct Answer: ${correctAnswer}`);
+            setMessage(`Incorrect. \nCorrect Answer: ${correctAnswer}`);
             incorrect.play();
             setIncorrectCount(prev => prev + 1);
             setShowCorrect(true);
@@ -107,10 +115,12 @@ const Game = () => {
 
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-[#090909] text-white p-6'>
+            {/* <NavBar /> */}
             {!quizCompleted ? (
                 <>
                     {/* Show kana/question when quiz is active */}
-                    <h1 className='text-4xl font-bold mb-4 mt-12'>{shuffledChars[currentIndex]}</h1>
+                    <h1 className=' text-3xl font-bold '>Remaining: {remainingSymbols}</h1>
+                    <h2 className='text-4xl font-bold mb-4 mt-12'>{shuffledChars[currentIndex]}</h2>
                     
                     {/* Input Field with Arrow */}
                     <TextField
@@ -119,7 +129,7 @@ const Game = () => {
                         value={userInput}
                         onChange={(e) => setUserInput(e.target.value)}
                         onKeyDown={(e) => {
-                            if (e.key === "Enter") {
+                            if (e.key === "Enter" && !isProcessing) {
                                 e.preventDefault();
                                 showCorrect ? moveToNext() : checkAnswer();
                             }
@@ -176,7 +186,7 @@ const Game = () => {
                     />
 
                     {/* Message Display */}
-                    <p className='mt-4 text-lg min-h-[32px]'>{message}</p>
+                    <p className='mt-4 text-lg min-h-[32px] whitespace-pre-line text-center font-bold'>{message}</p>
                 </>
             ) : (
                 <>
@@ -208,6 +218,7 @@ const Game = () => {
                     </IconButton>
                 </Tooltip>
             </div>
+            {/* <Footer /> */}
         </div>
     );
 };

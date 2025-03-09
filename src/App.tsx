@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { hiragana, katakana } from './components/kana';
 import { Checkbox } from '@mantine/core';
+import Footer from './components/footer';
+import NavBar from './components/NavBar';
+
 
 function App() {
   const navigate = useNavigate();
@@ -98,7 +101,8 @@ function App() {
 
 
   return (
-    <div className="min-h-screen bg-[#090909] py-4">
+    <div className="min-h-screen bg-[#090909]">
+      <NavBar />
       <div className="max-w-7xl mx-auto bg-neutral-900 border-2 border-gray-600 rounded-lg px-6 py-6 shadow-lg overflow-x-">
 
         {/* Scrollable Content Section */}
@@ -224,7 +228,8 @@ function App() {
                   </button>
                 </div>
               </div>
-            </div>
+            <Footer />
+          </div>
   );
 }
 
